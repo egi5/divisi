@@ -35,7 +35,7 @@ class Divisi extends ResourcePresenter
 
             echo json_encode($json);
         } else {
-            return 'Tidak bisa load';
+            return 'Tidak bisa load data';
         }
     }
 
@@ -48,7 +48,7 @@ class Divisi extends ResourcePresenter
             $data = [
                 'divisi' => $divisi
             ];
-
+ 
             $json = [
                 'data'   => view('data_master/divisi/add', $data),
             ];
