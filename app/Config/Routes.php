@@ -99,6 +99,15 @@ $routes->group('', ['filter' => 'isLoggedIn'], function ($routes) {
     $routes->resource('ekspedisi', ['filter' => 'permission:Data Master']);
     $routes->resource('jasa', ['filter' => 'permission:Data Master']);
 
+    //Devisi
+    $routes->get('divisi', 'Divisi::index', ['filter' => 'permission:Data Master']);
+    $routes->get('divisi/(:num)', 'Divisi::show/$1', ['filter' => 'permission:Data Master']);
+    $routes->get('divisi/(:num)', 'Divisi::edit/$1', ['filter' => 'permission:Data Master']);
+    $routes->get('divisi/new', 'Divisi::new', ['filter' => 'permission:Data Master']);
+
+    
+
+
     // ------------------------------------------------------------------------------------ TRANSAKSI
 
     // Pemesanan

@@ -17,11 +17,11 @@
                     </a>
                 <?php endif; ?>
                 <?php if (has_permission('Data Master')) : ?>
-                    <a class="nav-link" href="<?= base_url() ?>/master">
+                    <a class="nav-link" href="<?= base_url() ?>/divisi">
                         <div class="sb-nav-link-icon">
                             <i class="fa-fw fa-regular fa-folder-open"></i>
                         </div>
-                        Data Master
+                        Data Devisi
                     </a>
                 <?php endif; ?>
 

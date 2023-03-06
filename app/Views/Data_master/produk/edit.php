@@ -163,7 +163,7 @@
                 <div class="row mb-2">
                     <label for="note" class="col-sm-3 col-form-label">Note</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= (validation_show_error('note')) ? 'is-invalid' : ''; ?>" id="note" name="note" value="<?= old('note',  $produk['note']); ?>">
+                        <input type="text" class="form-control <?= (validation_show_error('note')) ? 'is-invalid' : ''; ?>" id="note" name="note" value="<?= old('note',  $divisi['note']); ?>">
                         <div class="invalid-feedback"> <?= validation_show_error('note'); ?></div>
                     </div>
                 </div>

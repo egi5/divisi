@@ -48,4 +48,6 @@ class Menu extends BaseController
     {
         return view('menu/menu_laporan');
     }
+
+    
 }
