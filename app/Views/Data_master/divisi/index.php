@@ -15,7 +15,7 @@
             </a>
         </div>
         <div class="mb-1">
-            <a class="btn btn-sm btn-outline-secondary" id="tombolTambah">
+            <a class="btn btn-sm btn-outline-secondary" href="<?= site_url() ?>divisi/new">
                 <i class="fa-fw fa-solid fa-plus"></i> Tambah Devisi
             </a>
         </div>

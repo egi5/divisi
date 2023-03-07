@@ -49,7 +49,7 @@
             showConfirmButton: false,
             timer: 5000,
             timerProgressBar: true,
-            background: '#EC7063',
+            background: '#63ec88',
             color: '#fff',
             iconColor: '#fff',
             didOpen: (toast) => {
@@ -57,7 +57,7 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-    }
+    })
 
     $('.formDivisi').submit(function(e){
             e.preventDefault();
