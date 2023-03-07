@@ -9,7 +9,7 @@ class Divisi extends ResourcePresenter
     public function index()
     {
         $modelDivisi = new DivisiModel();
-        $divisi = $modelDivisi->findall();
+        $divisi      = $modelDivisi->findall();
 
         $data = [
             'divisi' => $divisi
@@ -23,14 +23,14 @@ class Divisi extends ResourcePresenter
     {
         if ($this->request->isAJAX()) {
             $modelDivisi = new DivisiModel();
-            $divisi = $modelDivisi->find($id);
+            $divisi      = $modelDivisi->find($id);
 
             $data = [
-                'divisi'      => $divisi,
+                'divisi' => $divisi,
             ];
 
             $json = [
-                'data' => view('data_master/divisi/show', $data),
+                'data'   => view('data_master/divisi/show', $data),
             ];
 
             echo json_encode($json);
@@ -43,7 +43,7 @@ class Divisi extends ResourcePresenter
     {
         if ($this->request->isAJAX()) {
             $modelDivisi = new DivisiModel();
-            $divisi = $modelDivisi->findall();
+            $divisi = $modelDivisi->findAll();
 
             $data = [
                 'divisi' => $divisi
@@ -63,44 +63,108 @@ class Divisi extends ResourcePresenter
 
     public function create()
     {
-        $validasi = [
-            'nama'       => [
-                'rules'  => 'required|is_unique[divisi.nama]',
-                'errors' => [
-                    'required'  => '{field} gudang harus diisi.',
-                    'is_unique' => 'nama divisi sudah ada dalam database.'
-                ]
-            ],
-            'deskripsi'  => [
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} divisi harus diisi.',
-                ]
-            ],
-        ];
+        if ($this->request->isAJAX()) {
+            $validasi = [
+                'nama'       => [
+                    'rules'  => 'required|is_unique[divisi.nama]',
+                    'errors' => [
+                        'required'  => '{field} harus diisi.',
+                        'is_unique' => 'nama divisi sudah ada dalam database.'
+                    ]
+                ],
+                'deskripsi'  => [
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => '{field} divisi harus diisi.',
+                    ]
+                ],
+            ];
 
-        if (!$this->validate($validasi)) {
-            return redirect()->to('/divisi/new')->withInput();
+            if (!$this->validate($validasi)) {
+                return redirect()->to('/divisi/new')->withInput();
+            }
+
+            $modelDivisi = new DivisiModel();
+
+            $data = [
+                'nama'         => $this->request->getPost('nama'),
+                'deskripsi'    => $this->request->getPost('deskripsi'),
+            ];
+            $modelDivisi->insert($data);
+
+            session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
+
+            return redirect()->to('/divisi');
+        } else {
+            return 'Tidak bisa menambahkan';
         }
-
-        $modelDivisi = new DivisiModel();
-
-        $data = [
-            'nama'         => $this->request->getPost('nama'),
-            'deskripsi'    => $this->request->getPost('deskripsi'),
-        ];
-        $modelDivisi->save($data);
-
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
-
-        return redirect()->to('/divisi');
     }
+
+
+    public function edit($id = null)
+    {
+        if ($this->request->isAJAX()) {
+            $modelDivisi = new DivisiModel();
+            $divisi      = $modelDivisi->find($id);
+
+            $data = [
+                'divisi' => $divisi
+            ];
+ 
+            $json = [
+                'data'   => view('data_master/divisi/edit', $data),
+            ];
+
+            echo json_encode($json);
+        } else {
+            return 'Tidak bisa load';
+        }
+    }
+
+
+    public function update($id = null)
+    {
+        if ($this->request->isAJAX()){
+            $modelDivisi = new DivisiModel();
+            $oldDivisi = $modelDivisi->find($id);
+
+            // if ($oldDivisi['nama'] == $this->request->getPost('nama')) {
+            //     $ruleNama = 'required';
+            // } else {
+            //     $ruleNama = 'required|is_unique[divsi.nama]';
+            // }
+
+            // $validasi = [
+            //     'nama' => [
+            //         'rules' => $rule_nama,
+            //         'errors' => [
+            //             'required' => '{field} produk harus diisi.',
+            //             'is_unique' => 'nama produk sudah ada dalam database.'
+            //         ]
+            //     ],
+            // ];  
+
+            // if (!$this->validate($validasi)) {
+            //     return redirect()->to('/divisi/' . $id . '/edit')->withInput();
+            // }
+            
+            $data =[
+                'nama'      => $this->request->getVar('nama'),
+                'deskripsi' => $this->request->getVar('deskripsi')
+            ];
+
+
+        } else {
+            return 'Tidak bisa load';
+        }
+    }
+
 
     public function delete($id = null)
     {
         $modelDivisi = new DivisiModel();
 
-        $divisi = $modelProduk->find($id);
+        $divisi     = $modelDivisi->find($id);
 
         $modelDivisi->delete($id);
 

@@ -1,9 +1,9 @@
-<form autocomplete="off" class="row g-3 mt-2" action="<?= site_url() ?>divisi" method="POST" id="form">
+<form autocomplete="off" class="row g-3 mt-2" action="<?= site_url() ?>divisi" method="post"  id="form">
 
     <?= csrf_field() ?>
 
     <div class="row mb-3">
-        <label for="nama" class="col-sm-3 col-form-label">Nama Produk</label>
+        <label for="nama" class="col-sm-3 col-form-label">Nama Divisi</label>
         <div class="col-sm-9">
             <input type="text" class="form-control" id="nama" name="nama" autofocus>
             <div class="invalid-feedback error-nama"></div>
@@ -13,7 +13,7 @@
     <div class="row mb-2">
         <label for="note" class="col-sm-3 col-form-label">Diskripsi</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="diskripsi" name="diskripsi">
+            <input type="text" class="form-control" id="deskripsi" name="deskripsi">
             <div class="invalid-feedback error-note"></div>
         </div>
     </div>
@@ -66,6 +66,10 @@
                         })
                     })
                 }
+            },
+            error: function(e) {
+                alert('Error \n' + e.responseText);
+            }
         });
     })
 </script>

@@ -50,7 +50,7 @@
                             </a>
 
                             <form id=   "form_delete" method="POST" class="d-inline">
-                                <?= csrf_field() ?>
+                                
                                 <input type="hidden" name="_method" value="DELETE">
                             </form>
 
@@ -129,7 +129,7 @@
             confirmButtonText: 'Ya, hapus!'
         }).then((result) => {
             if (result.isConfirmed) {
-                $('#form_delete').attr('action', '<?= site_url() ?>divisi' + id);
+                $('#form_delete').attr('action', '<?= site_url() ?>divisi/' + id);
                 $('#form_delete').submit();
             }
         })
@@ -149,7 +149,7 @@
             dataType: 'json',
             success: function(res) {
                 if (res.data) {
-                    $('#isiForm').html(res.data)
+                    $('#isiModal').html(res.data);
                     $('#my-modal').modal('toggle')
                     $('#judulModal').html('Tambah Divisi')
                 }
@@ -168,7 +168,7 @@
             dataType: 'json',
             success: function(res) {
                 if (res.data) {
-                    $('#isiForm').html(res.data)
+                    $('#isiModal').html(res.data)
                     $('#my-modal').modal('toggle')
                     $('#judulModal').html('Detail Devisi')
                 } else {
@@ -184,12 +184,12 @@
 
     function showModalEdit(id) {
         $.ajax({
-            type: 'GET',
+            type: 'put',
             url: '<?= site_url() ?>divisi/' + id,
             dataType: 'json',
             success: function(res) {
                 if (res.data) {
-                    $('#isiForm').html(res.data)
+                    $('#isiModal').html(res.data)
                     $('#my-modal').modal('toggle')
                     $('#judulModal').html('Edit Devisi')
                 } else {
@@ -202,25 +202,6 @@
         })
     }
 
-
-    function hapus(id) 
-    {
-        $.ajax({
-            type: "post",
-            url :"<?= site_url()?>divisi/" + id,
-            data:{
-                id : id
-            },
-            dataType: "json",
-            success: function (res) {
-                
-                
-            },
-            error:function(e) {
-                alert('Error \n' + e.responseText);
-            }
-        })
-    }
 </script>
 
 <?= $this->endSection() ?>
