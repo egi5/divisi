@@ -62,37 +62,53 @@ class Divisi extends ResourcePresenter
 
     public function create()
     {
-        $validasi = [
-            'nama'       => [
-                'rules'  => 'required',
-                'errors' => [
-                    'required'  => '{field} nama divisi harus diisi.',
-                    'is_unique' => 'nama divisi sudah ada dalam database.'
-                ]
-            ],
-            'deskripsi'  => [
-                'rules'  => 'required',
-                'errors' => [
-                    'required'  => '{field} divisi harus diisi.',
-                ]
-            ],
-        ];
+        if ($this->request->isAJAX()) {
+            $validasi = [
+                'nama'       => [
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required'  => '{field} nama divisi harus diisi.',
+                        'is_unique' => 'nama divisi sudah ada dalam database.'
+                    ]
+                ],
+                'deskripsi'  => [
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required'  => '{field} deskripsi harus diisi.',
+                    ]
+                ],
+            ];
 
             if (!$this->validate($validasi)) {
                 return redirect()->to('/divisi/new')->withInput();
-            }
 
-            $modelDivisi = new DivisiModel();
+                $error = [
+                    'error_nama'        => $validation->getError('nama'),
+                    'error-deskripsi'  => $validation->getError('deskripsi')
+                ];
 
-            $data = [
-                'nama'         => $this->request->getPost('nama'),
-                'deskripsi'    => $this->request->getPost('deskripsi'),
-            ];
-            $modelDivisi->insert($data);
+                $json = [
+                    'error' => $error
+                ];
+             
+            } else {
+                $modelDivisi = new DivisiModel();
 
-            session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
+                $data = [
+                    'nama'         => $this->request->getPost('nama'),
+                    'deskripsi'    => $this->request->getPost('deskripsi'),
+                ];
+                $modelDivisi->insert($data);
 
-            return redirect()->to('/divisi');
+                $json = [
+                    'success' => 'Berhasil menambah data produk'
+                ];
+            }    
+            
+            echo json_encode($json);
+        } else {
+            return 'Tidak bisa load';
+        }
     }
 
 
@@ -123,35 +139,39 @@ class Divisi extends ResourcePresenter
                 'nama'       => [
                     'rules'  => 'required',
                     'errors' => [
-                        'required'  => '{field} harus diisi.',
+                        'required'  => '{field} nama divisi harus diisi.',
                         'is_unique' => 'nama divisi sudah ada dalam database.'
                     ]
                 ],
                 'deskripsi'  => [
                     'rules'  => 'required',
                     'errors' => [
-                        'required' => '{field} divisi harus diisi.',
+                        'required' => '{field} deskripsi harus diisi.',
                     ]
                 ],
             ];
 
             if (!$this->validate($validasi)) {
                 return redirect()->to('/divisi/edit')->withInput();
+
+                $error = [
+                    'error_nama'        => $validation->getError('nama'),
+                    'error-deskripsi'  => $validation->getError('deskripsi')
+                ];
+            } else {
+                $modelDivisi = new DivisiModel();
+                $divisi      = $modelDivisi->find($id);
+
+                $data = [
+                    'id'           => $divisi,
+                    'nama'         => $this->request->getPost('nama'),
+                    'deskripsi'    => $this->request->getPost('deskripsi'),
+                ];
+                $modelDivisi->save($data);
             }
+            session()->setFlashdata('pesan', 'Data Divisi berhasil diedit.');
 
-            $modelDivisi = new DivisiModel();
-            $divisi      = $modelDivisi->find($id);
-
-            $data = [
-                'id'           => $divisi,
-                'nama'         => $this->request->getPost('nama'),
-                'deskripsi'    => $this->request->getPost('deskripsi'),
-            ];
-            $modelDivisi->save($data);
-
-            session()->setFlashdata('pesan', 'Data berhasil Update.');
-
-            return redirect()->to('/divisi');
+            return redirect()->to('/divisi')->withInput();
     }
 
 

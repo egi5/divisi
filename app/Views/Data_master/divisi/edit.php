@@ -1,4 +1,4 @@
-<form autocomplete="off" class="row g-3 mt-3" action="<?= site_url() ?>divisi/<?= $divisi['id'] ?>" method="POST">
+<form autocomplete="off" class="row g-3 mt-3" action="<?= site_url() ?>divisi/<?= $divisi['id'] ?>" method="POST" id="form">
 
     <?= csrf_field() ?>
 
@@ -58,28 +58,5 @@
             }
         })
     })
-
-    $('.formDivisi').submit(function(e){
-            e.preventDefault();
-            $.ajax({
-                type:"POST",
-                url: $(this).attr('action'),
-                data:$(this).serialize(),
-                dataType:"Json",  
-                success: function(response){
-                    alert("Data berhasil diupdate");
-
-                    datapegawai();
-                },
-                error:function(e) {
-                    alert('Error \n' + e.responseText);
-                }
-
-            });
-            return false;
-        });
-
-
-    
     
 </script>

@@ -107,6 +107,7 @@ $routes->group('', ['filter' => 'isLoggedIn'], function ($routes) {
     $routes->post('divisi/(:num)', 'Divisi::update/$1', ['filter' => 'permission:Data Master']);
     $routes->post('divisi/create', 'Divisi::create', ['filter' => 'permission:Data Master']);
     $routes->delete('divisi/(:num)', 'Divisi::delete/$1', ['filter' => 'permission:Data Master']);
+    $routes->resource('divisi', ['filter' => 'permission:Data Master']);
     
 
 

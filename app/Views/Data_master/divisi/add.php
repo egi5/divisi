@@ -4,7 +4,7 @@
         <label for="nama" class="col-sm-3 col-form-label">Nama Produk</label>
         <div class="col-sm-9">
             <input type="text" class="form-control" id="nama" name="nama" autofocus>
-            <div class="invalid-feedback error-nama"></div>
+            <div class="invalid-feedback error_nama"></div>
         </div>
     </div>
             
@@ -12,7 +12,7 @@
         <label for="nama" class="col-sm-3 col-form-label">Deskripsi</label>
         <div class="col-sm-9">
             <input type="text" class="form-control" id="deskripsi" name="deskripsi">
-            <div class="invalid-feedback error-deskripsi"></div>
+            <div class="invalid-feedback error_deskripsi"></div>
         </div>
     </div>
 
@@ -43,18 +43,18 @@
                     let err = response.error;
 
                     if (err.error_nama) {
-                        $('.error-nama').html(err.error_nama);
+                        $('.error_nama').html(err.error_nama);
                         $('#nama').addClass('is-invalid');
                     } else {
-                        $('.error-nama').html('');
+                        $('.error_nama').html('');
                         $('#nama').removeClass('is-invalid');
                         $('#nama').addClass('is-valid');
                     }
                     if (err.error_deskripsi) {
-                        $('.error-deskripsi').html(err.error_deskripsi);
+                        $('.error_deskripsi').html(err.error_deskripsi);
                         $('#deskripsi').addClass('is-invalid');
                     } else {
-                        $('.error-deskripsi').html('');
+                        $('.error_deskripsi').html('');
                         $('#deskripsi').removeClass('is-invalid');
                         $('#deskripsi').addClass('is-valid');
                     }
