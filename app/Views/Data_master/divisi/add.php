@@ -1,4 +1,4 @@
-<form autocomplete="off" class="row g-3 mt-2" action="<?= site_url() ?>divisi" method="post"  id="form">
+<form autocomplete="off" class="row g-3 mt-2" action="<?= site_url() ?>divisi/create" method="POST"  id="form">
 
     <?= csrf_field() ?>
 

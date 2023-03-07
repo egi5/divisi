@@ -2,7 +2,7 @@
 
     <?= csrf_field() ?>
 
-    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="_method" value="<?= $divisi['id']; ?>">
 
     <div class="row mb-3">
         <label for="nama" class="col-sm-3 col-form-label">Nama Divisi</label>
@@ -42,56 +42,44 @@
             })
         }
 
-
-        $('#form').submit(function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: "post",
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                $('#tombolUpdate').html('Tunggu <i class="fa-solid fa-spin fa-spinner"></i>');
-                $('#tombolUpdate').prop('disabled', true);
-            },
-            complete: function() {
-                $('#tombolUpdate').html('Update <i class="fa-fw fa-solid fa-check"></i>');
-                $('#tombolUpdate').prop('disabled', false);
-            },
-            success: function(response) {
-                if (response.error) {
-                    let err = response.error;
-
-                    if (err.error_nama) {
-                        $('.error-nama').html(err.error_nama);
-                        $('#nama').addClass('is-invalid');
-                    } else {
-                        $('.error-nama').html('');
-                        $('#nama').removeClass('is-invalid');
-                        $('#nama').addClass('is-valid');
-                    }
-                }
-                if (response.success) {
-                    $('#my-modal').modal('hide')
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil',
-                        text: response.success,
-                    }).then((value) => {
-                        $('#tabel').DataTable().ajax.reload();
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.success
-                        })
-                    })
-                }
-            },
-            error: function(e) {
-                alert('Error \n' + e.responseText);
+        // Bahan Alert
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            background: '#EC7063',
+            color: '#fff',
+            iconColor: '#fff',
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
+        })
+    }
+
+    $('.formDivisi').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type:"POST",
+                url: $(this).attr('action'),
+                data:$(this).serialize(),
+                dataType:"Json",  
+                success: function(response){
+                    alert("Data berhasil diupdate");
+
+                    datapegawai();
+                },
+                error:function(e) {
+                    alert('Error \n' + e.responseText);
+                }
+
+            });
+            return false;
         });
-    })
-    })
+
+
     
     
 </script>

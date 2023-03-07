@@ -66,7 +66,7 @@ class Divisi extends ResourcePresenter
         if ($this->request->isAJAX()) {
             $validasi = [
                 'nama'       => [
-                    'rules'  => 'required|is_unique[divisi.nama]',
+                    'rules'  => 'required',
                     'errors' => [
                         'required'  => '{field} harus diisi.',
                         'is_unique' => 'nama divisi sudah ada dalam database.'
@@ -124,39 +124,43 @@ class Divisi extends ResourcePresenter
 
     public function update($id = null)
     {
-        if ($this->request->isAJAX()){
-            $modelDivisi = new DivisiModel();
-            $oldDivisi = $modelDivisi->find($id);
-
-            // if ($oldDivisi['nama'] == $this->request->getPost('nama')) {
-            //     $ruleNama = 'required';
-            // } else {
-            //     $ruleNama = 'required|is_unique[divsi.nama]';
-            // }
-
-            // $validasi = [
-            //     'nama' => [
-            //         'rules' => $rule_nama,
-            //         'errors' => [
-            //             'required' => '{field} produk harus diisi.',
-            //             'is_unique' => 'nama produk sudah ada dalam database.'
-            //         ]
-            //     ],
-            // ];  
-
-            // if (!$this->validate($validasi)) {
-            //     return redirect()->to('/divisi/' . $id . '/edit')->withInput();
-            // }
-            
-            $data =[
-                'nama'      => $this->request->getVar('nama'),
-                'deskripsi' => $this->request->getVar('deskripsi')
+        // if ($this->request->isAJAX()) {
+            $validasi = [
+                'nama'       => [
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required'  => '{field} harus diisi.',
+                        'is_unique' => 'nama divisi sudah ada dalam database.'
+                    ]
+                ],
+                'deskripsi'  => [
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => '{field} divisi harus diisi.',
+                    ]
+                ],
             ];
 
+            if (!$this->validate($validasi)) {
+                return redirect()->to('/divisi/edit')->withInput();
+            }
 
-        } else {
-            return 'Tidak bisa load';
-        }
+            $modelDivisi = new DivisiModel();
+            $divisi      = $modelDivisi->find($id);
+
+            $data = [
+                'id'           => $divisi,
+                'nama'         => $this->request->getPost('nama'),
+                'deskripsi'    => $this->request->getPost('deskripsi'),
+            ];
+            $modelDivisi->save($data);
+
+            session()->setFlashdata('pesan', 'Data berhasil Update.');
+
+            return redirect()->to('/divisi');
+        // } else {
+        //     return 'Tidak bisa di load';
+        // }
     }
 
 
