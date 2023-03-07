@@ -1,7 +1,5 @@
 <form autocomplete="off" class="row g-3 mt-2" action="<?= site_url() ?>produk" method="POST" id="form">
 
-    <?= csrf_field() ?>
-
     <div class="row mb-3">
         <label for="nama" class="col-sm-3 col-form-label">Nama Produk</label>
         <div class="col-sm-9">

@@ -15,7 +15,7 @@
             </a>
         </div>
         <div class="mb-1">
-            <a class="btn btn-sm btn-outline-secondary" href="<?= site_url() ?>divisi/new">
+            <a class="btn btn-sm btn-outline-secondary" id="tombolTambah">
                 <i class="fa-fw fa-solid fa-plus"></i> Tambah Devisi
             </a>
         </div>
@@ -57,7 +57,6 @@
                             <button onclick="confirm_delete(<?= $sp['id'] ?>)" title="Hapus" type="button" class="px-2 py-0 btn btn-sm btn-outline-danger">
                                 <i class="fa-fw fa-solid fa-trash"></i>
                             </button>
-                            
                         </td>
                     </tr>
                 <?php endforeach; ?>

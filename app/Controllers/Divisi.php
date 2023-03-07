@@ -41,12 +41,22 @@ class Divisi extends ResourcePresenter
 
     public function new()
     {
-        $data = [
-            'validation' => \Config\Services::validation()
-        ];
+        if ($this->request->isAJAX()) {
+            $modelDivisi = new DivisiModel();
+            $divisi = $modelDivisi->findAll();
 
-        return view('data_master/divisi/add', $data);
-        
+            $data = [
+                'divisi' => $divisi
+            ];
+ 
+            $json = [
+                'data'   => view('data_master/divisi/add', $data),
+            ];
+
+            echo json_encode($json);
+        } else {
+            return 'Tidak bisa load';
+        }
     }
 
 
@@ -83,7 +93,6 @@ class Divisi extends ResourcePresenter
             session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
 
             return redirect()->to('/divisi');
-        
     }
 
 
@@ -110,12 +119,11 @@ class Divisi extends ResourcePresenter
 
     public function update($id = null)
     {
-        if ($this->request->isAJAX()) {
             $validasi = [
                 'nama'       => [
                     'rules'  => 'required',
                     'errors' => [
-                        'required'  => '{field} nama divisi harus diisi.',
+                        'required'  => '{field} harus diisi.',
                         'is_unique' => 'nama divisi sudah ada dalam database.'
                     ]
                 ],
@@ -144,9 +152,6 @@ class Divisi extends ResourcePresenter
             session()->setFlashdata('pesan', 'Data berhasil Update.');
 
             return redirect()->to('/divisi');
-        } else {
-            return 'Tidak bisa di load';
-        }
     }
 
 
