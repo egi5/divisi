@@ -45,8 +45,8 @@
                                 <i class="fa-fw fa-solid fa-magnifying-glass"></i>
                             </a>
 
-                            <a title="Edit" class="px-2 py-0 btn btn-sm btn-outline-primary" onclick="showModalEdit(<?= $sp['id'] ?>)">
-                                <i class="fa-fw fa-solid fa-pen"></i>
+                            <a title="Edit" class="px-2 py-0 btn btn-sm btn-outline-primary" href="<?= site_url() ?>divisi/<?= $sp['id'] ?>/edit">
+                                    <i class="fa-fw fa-solid fa-pen"></i>
                             </a>
 
                             <form id=   "form_delete" method="POST" class="d-inline">
@@ -60,7 +60,7 @@
                         </td>
                     </tr>
                 <?php endforeach; ?>
-                </tr>
+                </tr> 
                 
             </tbody>
         </table>
@@ -181,28 +181,6 @@
             }
         })
     }
-
-
-    function showModalEdit(id) {
-        $.ajax({
-            type: 'put',
-            url: '<?= site_url() ?>divisi/' + id,
-            dataType: 'json',
-            success: function(res) {
-                if (res.data) {
-                    $('#isiModal').html(res.data)
-                    $('#my-modal').modal('toggle')
-                    $('#judulModal').html('Edit Devisi')
-                } else {
-                    console.log(res)
-                }
-            },
-            error: function(e) {
-                alert('Error \n' + e.responseText);
-            }
-        })
-    }
-
 </script>
 
 <?= $this->endSection() ?>

@@ -1,4 +1,4 @@
-<form autocomplete="off" class="row g-3 mt-3" action="<?= site_url() ?>divisi/create" method="POST" id="form">
+<form autocomplete="off" class="row g-3 mt-3" action="<?= site_url() ?>divisi" method="POST" id="form">
 
     <div class="row mb-3">
         <label for="nama" class="col-sm-3 col-form-label">Nama Produk</label>

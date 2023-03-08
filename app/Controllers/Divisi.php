@@ -102,7 +102,7 @@ class Divisi extends ResourcePresenter
                 $modelDivisi->insert($data);
 
                 $json = [
-                    'success' => 'Berhasil menambah data produk'
+                    'success' => 'Berhasil menambah data divisi'
                 ];
             }    
             
@@ -115,56 +115,52 @@ class Divisi extends ResourcePresenter
 
     public function edit($id = null)
     {
-        if ($this->request->isAJAX()) {
-            $modelDivisi = new DivisiModel();
-            $divisi      = $modelDivisi->find($id);
+        $modelDivisi = new DivisiModel();
+        $divisi      = $modelDivisi->find($id);
 
-            $data = [
-                'validation'    => \Config\Services::validation(),
-                'divisi'        => $divisi
-            ];
+        $data = [
+            'validation'    => \Config\Services::validation(),
+            'divisi'        => $divisi
+        ];
  
-            $json = [
-                'data'   => view('data_master/divisi/edit', $data),
-            ];
+        $json = [
+            'data'   => view('data_master/divisi/edit', $data),
+        ];
 
-            echo json_encode($json);
-        } else {
-            return 'Tidak bisa load';
-        }
+        return view('data_master/divisi/edit', $data);
     }
 
 
     public function update($id = null)
     {
+        if ($this->request->isAJAX()) {
             $validasi = [
                 'nama'       => [
                     'rules'  => 'required',
                     'errors' => [
                         'required'  => '{field} nama divisi harus diisi.',
-                        'is_unique' => 'nama divisi sudah ada dalam database.'
                     ]
                 ],
                 'deskripsi'  => [
                     'rules'  => 'required',
                     'errors' => [
-                        'required' => '{field} deskripsi harus diisi.',
+                        'required'  => '{field} harus diisi.',
                     ]
                 ],
             ];
 
             if (!$this->validate($validasi)) {
-                return redirect()->to('divisi/'.$id.'')->withInput();
                 $validation = \Config\Services::validation();
 
                 $error = [
-                    'error_nama'        => $validation->getError('nama'),
+                    'error_nama'       => $validation->getError('nama'),
                     'error_deskripsi'  => $validation->getError('deskripsi')
                 ];
 
                 $json = [
                     'error' => $error
                 ];
+             
             } else {
                 $modelDivisi = new DivisiModel();
                 $divisi      = $modelDivisi->find($id);
@@ -175,10 +171,16 @@ class Divisi extends ResourcePresenter
                     'deskripsi'    => $this->request->getPost('deskripsi'),
                 ];
                 $modelDivisi->save($data);
-            }
-            session()->setFlashdata('pesan', 'Data Divisi berhasil diedit.');
 
-            return redirect()->to('/divisi')->withInput();
+                $json = [
+                    'success' => 'Berhasil menambah data divisi'
+                ];
+            }    
+            
+            echo json_encode($json);
+        } else {
+            return 'Tidak bisa load';
+        }
     }
 
 
