@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1 ?>
+            <?php $no = 1 ?>
                 <?php foreach ($divisi as $sp) : ?>
                     <tr>
                         <td><?= $no++ ?></td>
@@ -61,6 +61,7 @@
                     </tr>
                 <?php endforeach; ?>
                 </tr>
+                
             </tbody>
         </table>
     </div>
@@ -104,6 +105,7 @@
 
 
     $(document).ready(function() {
+
         $('#tabel').DataTable();
 
         // Alert

@@ -100,6 +100,7 @@ $routes->group('', ['filter' => 'isLoggedIn'], function ($routes) {
     $routes->resource('jasa', ['filter' => 'permission:Data Master']);
 
     //Divisi
+    $routes->get('getdatadivisi', 'Divisi::getDataDivisi', ['filter' => 'permission:Data Master']);
     $routes->get('divisi', 'Divisi::index', ['filter' => 'permission:Data Master']);
     $routes->get('divisi/(:num)', 'Divisi::show/$1', ['filter' => 'permission:Data Master']);
     $routes->put('divisi/(:num)', 'Divisi::edit/$1', ['filter' => 'permission:Data Master']);

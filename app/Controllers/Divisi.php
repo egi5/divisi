@@ -38,6 +38,7 @@ class Divisi extends ResourcePresenter
             return 'Tidak bisa load data';
         }
     }
+    
 
     public function new()
     {
@@ -65,7 +66,7 @@ class Divisi extends ResourcePresenter
         if ($this->request->isAJAX()) {
             $validasi = [
                 'nama'       => [
-                    'rules'  => 'required',
+                    'rules'  => 'required|is_unique[divisi.nama]',
                     'errors' => [
                         'required'  => '{field} nama divisi harus diisi.',
                         'is_unique' => 'nama divisi sudah ada dalam database.'
@@ -80,11 +81,11 @@ class Divisi extends ResourcePresenter
             ];
 
             if (!$this->validate($validasi)) {
-                return redirect()->to('/divisi/new')->withInput();
+                $validation = \Config\Services::validation();
 
                 $error = [
-                    'error_nama'        => $validation->getError('nama'),
-                    'error-deskripsi'  => $validation->getError('deskripsi')
+                    'error_nama'       => $validation->getError('nama'),
+                    'error_deskripsi'  => $validation->getError('deskripsi')
                 ];
 
                 $json = [
@@ -119,7 +120,8 @@ class Divisi extends ResourcePresenter
             $divisi      = $modelDivisi->find($id);
 
             $data = [
-                'divisi' => $divisi
+                'validation'    => \Config\Services::validation(),
+                'divisi'        => $divisi
             ];
  
             $json = [
@@ -152,11 +154,16 @@ class Divisi extends ResourcePresenter
             ];
 
             if (!$this->validate($validasi)) {
-                return redirect()->to('/divisi/edit')->withInput();
+                return redirect()->to('divisi/'.$id.'')->withInput();
+                $validation = \Config\Services::validation();
 
                 $error = [
                     'error_nama'        => $validation->getError('nama'),
-                    'error-deskripsi'  => $validation->getError('deskripsi')
+                    'error_deskripsi'  => $validation->getError('deskripsi')
+                ];
+
+                $json = [
+                    'error' => $error
                 ];
             } else {
                 $modelDivisi = new DivisiModel();

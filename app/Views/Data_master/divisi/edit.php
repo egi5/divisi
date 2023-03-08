@@ -7,7 +7,7 @@
     <div class="row mb-3">
         <label for="nama" class="col-sm-3 col-form-label">Nama Divisi</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="nama" name="nama" value="<?= $divisi['nama']; ?>">
+                <input type="text" class="form-control" id="nama" name="nama" value="<?= old('nama',$divisi['nama']); ?>">
                 <div class="invalid-feedback"></div>
             </div>
     </div>
