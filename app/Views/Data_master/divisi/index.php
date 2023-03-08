@@ -45,7 +45,7 @@
                                 <i class="fa-fw fa-solid fa-magnifying-glass"></i>
                             </a>
 
-                            <a title="Edit" class="px-2 py-0 btn btn-sm btn-outline-primary" href="<?= site_url() ?>divisi/<?= $sp['id'] ?>/edit">
+                            <a title="Edit" class="px-2 py-0 btn btn-sm btn-outline-primary" onclick="showModalEdit(<?= $sp['id'] ?>)/'edit'">
                                     <i class="fa-fw fa-solid fa-pen"></i>
                             </a>
 
@@ -181,7 +181,6 @@
             }
         })
     }
-<<<<<<< HEAD
 
 
     function showModalEdit(id) {
@@ -204,8 +203,6 @@
         })
     }
 
-=======
->>>>>>> e584d16612f3714358e0bb12441b2a5a3404a6d0
 </script>
 
 <?= $this->endSection() ?>

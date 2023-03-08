@@ -100,21 +100,12 @@ $routes->group('', ['filter' => 'isLoggedIn'], function ($routes) {
     $routes->resource('jasa', ['filter' => 'permission:Data Master']);
 
     //Divisi
-<<<<<<< HEAD
     // $routes->get('divisi', 'Divisi::index', ['filter' => 'permission:Data Master']);
     // $routes->get('divisi/(:num)', 'Divisi::show/$1', ['filter' => 'permission:Data Master']);
     // $routes->post('divisi', 'Divisi::create', ['filter' => 'permission:Data Master']);
     // $routes->get('divisi/new', 'Divisi::new', ['filter' => 'permission:Data Master']);
     // $routes->get('divisi/(:num)/edit', 'Divisi::edit/$1', ['filter' => 'permission:Data Master']);
     // $routes->post('divisi/update/(:num)', 'Divisi::update/$1  ', ['filter' => 'permission:Data Master']);
-=======
-    $routes->get('divisi', 'Divisi::index', ['filter' => 'permission:Data Master']);
-    $routes->get('divisi/(:num)', 'Divisi::show/$1', ['filter' => 'permission:Data Master']);
-    $routes->post('divisi', 'Divisi::create', ['filter' => 'permission:Data Master']);
-    $routes->get('divisi/new', 'Divisi::new', ['filter' => 'permission:Data Master']);
-    $routes->get('divisi/(:num)/edit', 'Divisi::edit/$1', ['filter' => 'permission:Data Master']);
-    $routes->post('divisi/(:num)', 'Divisi::update/$1  ', ['filter' => 'permission:Data Master']);
->>>>>>> e584d16612f3714358e0bb12441b2a5a3404a6d0
     $routes->resource('divisi', ['filter' => 'permission:Data Master']);
 
     
