@@ -7,7 +7,7 @@
 
     <div class="d-flex mb-0">
         <div class="me-auto mb-1">
-            <h3 style="color: #566573;">Devisi</h3>
+            <h3 style="color: #566573;">Divisi</h3>
         </div>
         <div class="me-2 mb-1">
             <a class="btn btn-sm btn-outline-dark" href="<?= site_url() ?>master">
@@ -16,7 +16,7 @@
         </div>
         <div class="mb-1">
             <a class="btn btn-sm btn-outline-secondary" id="tombolTambah">
-                <i class="fa-fw fa-solid fa-plus"></i> Tambah Devisi
+                <i class="fa-fw fa-solid fa-plus"></i> Tambah Divisi
             </a>
         </div>
     </div>
@@ -28,7 +28,7 @@
             <thead>
                 <tr>
                     <th class="text-center" width="5%">No</th>
-                    <th class="text-center" width="35%">Nama Devisi</th>
+                    <th class="text-center" width="35%">Nama Divisi</th>
                     <th class="text-center" width="30%">Deskripsi</th>
                     <th class="text-center" width="15%">Aksi</th>
                 </tr>
@@ -165,7 +165,7 @@
     function showModalDetail(id) {
         $.ajax({
             type: 'GET',
-            url: '<?= site_url() ?>divisi/' + id,
+            url: '<?= site_url() ?>divisi/' + id ,
             dataType: 'json',
             success: function(res) {
                 if (res.data) {
@@ -185,8 +185,8 @@
 
     function showModalEdit(id) {
         $.ajax({
-            type: 'put',
-            url: '<?= site_url() ?>divisi/' + id,
+            type: 'GET',
+            url: '<?= site_url() ?>divisi/' + id +'/edit',
             dataType: 'json',
             success: function(res) {
                 if (res.data) {

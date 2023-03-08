@@ -21,7 +21,7 @@
                         <div class="sb-nav-link-icon">
                             <i class="fa-fw fa-regular fa-folder-open"></i>
                         </div>
-                        Data Devisi
+                        Data Divisi
                     </a>
                 <?php endif; ?>
 

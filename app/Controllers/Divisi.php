@@ -115,7 +115,7 @@ class Divisi extends ResourcePresenter
 
     public function edit($id = null)
     {
-        if ($this->request->isAJAX()) {
+         if ($this->request->isAJAX()) {
             $modelDivisi = new DivisiModel();
             $divisi      = $modelDivisi->find($id);
 
@@ -130,41 +130,43 @@ class Divisi extends ResourcePresenter
 
             echo json_encode($json);
         } else {
-            return 'Tidak bisa load';
-        }
+                return 'Tidak bisa load';
+        } 
     }
 
 
     public function update($id = null)
     {
+        // if ($this->request->isAJAX()) {
             $validasi = [
                 'nama'       => [
                     'rules'  => 'required',
                     'errors' => [
                         'required'  => '{field} nama divisi harus diisi.',
-                        'is_unique' => 'nama divisi sudah ada dalam database.'
                     ]
                 ],
                 'deskripsi'  => [
                     'rules'  => 'required',
                     'errors' => [
-                        'required' => '{field} deskripsi harus diisi.',
+                        'required'  => '{field} harus diisi.',
                     ]
                 ],
             ];
 
             if (!$this->validate($validasi)) {
-                return redirect()->to('divisi/'.$id.'')->withInput();
+                return redirect()->to('divisi/' . $id . '/edit')->withInput();
                 $validation = \Config\Services::validation();
 
                 $error = [
-                    'error_nama'        => $validation->getError('nama'),
+                    'error_nama'       => $validation->getError('nama'),
                     'error_deskripsi'  => $validation->getError('deskripsi')
                 ];
 
                 $json = [
                     'error' => $error
                 ];
+                dd($json);
+                // echo json_encode($json);
             } else {
                 $modelDivisi = new DivisiModel();
                 $divisi      = $modelDivisi->find($id);
@@ -175,10 +177,16 @@ class Divisi extends ResourcePresenter
                     'deskripsi'    => $this->request->getPost('deskripsi'),
                 ];
                 $modelDivisi->save($data);
-            }
-            session()->setFlashdata('pesan', 'Data Divisi berhasil diedit.');
 
-            return redirect()->to('/divisi')->withInput();
+                session()->setFlashdata('pesan', 'Data produk berhasil diedit.');
+
+                return redirect()->to('/divisi')->withInput();    
+            }    
+            
+            
+        // } else {
+        //     return 'Tidak bisa load';
+        // }
     }
 
 
